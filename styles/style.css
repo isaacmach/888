@@ -1,0 +1,99 @@
+/* Reset básico para remover margens e preenchimentos padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilização do corpo da página */
+body {
+  font-family: "Bona Nova SC", serif; /* Fonte principal */
+  background-color: #000000; /* Fundo preto */
+  color: #ffffff; /* Texto branco */
+  line-height: 1.5; /* Altura da linha ajustada */
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Suavização de transição */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que o corpo ocupe toda a altura da tela */
+}
+
+/* Cabeçalho centralizado */
+header {
+  text-align: center;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 2rem;
+  transition: background-color 0.5s ease-in-out;
+}
+
+/* Estilo do título principal */
+h1 {
+  font-family: "Bona Nova SC", serif; /* Fonte principal */
+  font-size: 2.5rem; /* Redução do tamanho da fonte */
+  transition: text-shadow 0.4s ease-in-out;
+}
+
+h1:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Estilização dos parágrafos */
+p {
+  font-size: 1rem; /* Redução do tamanho da fonte */
+  opacity: 0.9; /* Leve transparência para suavidade */
+}
+
+/* Conteúdo principal com espaçamento adequado */
+main {
+  padding: 2rem;
+  flex-grow: 1; /* Permite que o conteúdo ocupe o restante do espaço */
+}
+
+/* Seções com espaçamento e alinhamento centralizado */
+section {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Títulos das seções */
+section h2 {
+  font-size: 1.3rem; /* Redução do tamanho da fonte */
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: text-shadow 0.4s ease-in-out;
+}
+
+/* Efeito hover no título da seção */
+section h2:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+
+/* Parágrafos escondidos inicialmente */
+section p {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.6s ease-in-out, max-height 0.6s ease-in-out;
+}
+
+/* Aparecendo suavemente ao passar o mouse */
+section:hover p {
+  opacity: 1;
+  max-height: 500px;
+}
+
+/* Rodapé fixo e centralizado */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #000000;
+  color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
