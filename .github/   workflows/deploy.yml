@@ -1,0 +1,22 @@
+name: Deploy to K3s Cluster
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  
+
+      - name: Set up Kubeconfig
+        run: |
+          echo "$KUBE_CONFIG" > $HOME/.kube/config  # Configure o Kubeconfig para acessar o K3s
+          kubectl get nodes  # Verifica se o acesso ao K3s está funcionando
+
+      - name: Deploy MongoDB to K3s
+        run: kubectl apply -f mongo.yaml  
