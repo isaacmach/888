@@ -1,51 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isaac Machado - DevOps Portfolio</title>
-  
-  <!-- Pré-conexão para carregar as fontes mais rapidamente -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Link para as fontes Bona Nova SC e Sixtyfour Convergence -->
-  <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
-  
-  <!-- Link para o arquivo de estilo CSS -->
-  <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac Machado | DevOps Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --tertiary-bg: #252525;
+            --primary-text: #ffffff;
+            --secondary-text: rgba(255, 255, 255, 0.7);
+            --tertiary-text: rgba(255, 255, 255, 0.5);
+            --accent: #3d84a8;
+            --accent-light: #46b3e6;
+            --accent-dark: #2c6384;
+            --dark-blue: #172a3a;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border-radius: 4px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-light);
+        }
+        
+        /* Header */
+        header {
+            position: relative;
+            height: 100vh;
+            padding: 0 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .bg-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 10% 10%, var(--dark-blue) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 90%, var(--accent-dark) 0%, transparent 40%);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .name-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .title-name {
+            font-family: 'Cormorant', serif;
+            font-size: 5.5rem;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .title-accent {
+            position: relative;
+            z-index: 2;
+            font-weight: 600;
+        }
+        
+        .title-accent::after {
+            content: "";
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: var(--accent);
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .title-description {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            margin-bottom: 2.5rem;
+        }
+        
+        .header-cta {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--accent);
+            border-radius: var(--border-radius);
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-right: 1rem;
+        }
+        
+        .header-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-text);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(61, 132, 168, 0.3);
+        }
+        
+        .header-cta.secondary {
+            border-color: var(--tertiary-text);
+            color: var(--tertiary-text);
+        }
+        
+        .header-cta.secondary:hover {
+            background-color: var(--tertiary-text);
+            color: var(--primary-bg);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--secondary-text);
+            animation: float 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 5%;
+            z-index: 100;
+            transition: var(--transition);
+            background-color: transparent;
+        }
+        
+        nav.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            padding: 1rem 5%;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-family: 'Cormorant', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+        
+        .nav-items {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-item {
+            position: relative;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        /* Main content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+        
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+        
+        .section-heading {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            position: relative;
+            margin-right: 2rem;
+            white-space: nowrap;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 40%;
+            height: 8px;
+            background-color: var(--accent);
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .section-divider {
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--tertiary-text);
+        }
+        
+        /* About section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .profile-wrapper {
+            position: relative;
+        }
+        
+        .profile-img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px var(--shadow);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .profile-bg {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: var(--border-radius);
+            z-index: 0;
+            opacity: 0.2;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--tertiary-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Expertise section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent);
+        }
+        
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .skill-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-description {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            padding: 0.3rem 0.8rem;
+            background-color: var(--tertiary-bg);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--tertiary-text);
+        }
+        
+        /* Projects section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-bg);
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--accent-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(18, 18, 18, 0.8) 100%);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-description {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .project-tag {
+            padding: 0.3rem 0.8rem;
+            background-color: var(--tertiary-bg);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--tertiary-text);
+        }
+        
+        /* Philosophy section */
+        .philosophy-container {
+            position: relative;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            margin: 0 auto;
+            max-width: 900px;
+        }
+        
+        .philosophy-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .philosophy-quote {
+            font-family: 'Cormorant', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--primary-text);
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        .philosophy-text {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .philosophy-principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .principle {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .principle-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .principle-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .principle-description {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--tertiary-text);
+        }
+        
+        /* Contact section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            background-color: var(--secondary-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-detail {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+        }
+        
+        .contact-link {
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--accent-light);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            padding: 3rem 5%;
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: 'Cormorant', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tagline {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--secondary-text);
+            margin-bottom: 2rem;
+        }
+        
+        .footer-divider {
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+            margin-bottom: 2rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-icon {
+            font-size: 1.2rem;
+            color: var(--tertiary-text);
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-copyright {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--tertiary-text);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .title-name {
+                font-size: 4.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .profile-wrapper {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title-name {
+                font-size: 3.5rem;
+            }
+            
+            .title-description {
+                font-size: 1.2rem;
+            }
+            
+            .nav-items {
+                display: none;
+            }
+            
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .philosophy-principles {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title-name {
+                font-size: 2.5rem;
+            }
+            
+            .title-description {
+                font-size: 1rem;
+            }
+            
+            .header-cta {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .philosophy-quote {
+                font-size: 1.5rem;
+            }
+            
+            .philosophy-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Glow effect */
+        .glow {
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.05;
+            border-radius: 50%;
+            filter: blur(30px);
+            z-index: 0;
+        }
+        
+        .glow:nth-child(2) {
+            top: 70%;
+            left: 60%;
+            width: 300px;
+            height: 300px;
+            opacity: 0.03;
+        }
+        
+        /* Particles */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header>
-    <h1 id="name">Isaac Machado</h1>
-    <p>DevOps Engineer</p>
-  </header>
-
-  <main>
-    <section id="summary">
-      <h2>Professional Summary</h2>
-      <p id="summary-text">DevOps Engineer with over 2 years of experience in banking infrastructure, working in an infrabank that provides financial solutions for companies and fintechs, enabling financial transactions, card payments, and digital banking operations. Focused on automation, security, and scalability, with expertise in CI/CD, monitoring, and container orchestration to ensure high availability, resilience, and regulatory compliance. Skilled in collaborating with development teams to deliver agile and secure solutions, applying infrastructure-as-code practices and automation across multi-cloud environments.</p>
-    </section>
-
-    <section id="qualifications">
-      <h2>Qualifications</h2>
-      <p id="qualifications-text">DevOps Engineer passionate about automation, scalable infrastructure, and continuous delivery. Experienced in cloud computing (AWS, Azure, GCP), CI/CD, and Infrastructure as Code (Terraform, CloudFormation, Ansible). Specialized in Azure DevOps (Repos, Pipelines, Boards, Artifacts), managing YAML pipelines, release automation, and variable configurations to streamline software delivery.
-
-        Expertise in Docker, Amazon ECR, and Kubernetes (EKS) for container orchestration, ensuring efficient and scalable deployments. Proficient in monitoring tools like Prometheus, Grafana, and ELK Stack to maintain system reliability. Skilled in Python, Bash, and PowerShell scripting, automating workflows to enhance efficiency. Strong knowledge of Git, Agile methodologies, troubleshooting, performance optimization, and security best practices, driving continuous improvement in complex environments.</p>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p id="contact-text"> isaacmachado098@gmail.com</p>
-    </section>
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">IM</a>
+            <ul class="nav-items">
+                <li><a href="#about" class="nav-item">About</a></li>
+                <li><a href="#expertise" class="nav-item">Expertise</a></li>
+                <li><a href="#projects" class="nav-item">Projects</a></li>
+                <li><a href="#philosophy" class="nav-item">Philosophy</a></li>
+                <li><a href="#contact" class="nav-item">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
     
+    <header>
+        <div class="bg-gradient"></div>
+        <div class="header-content">
+            <div class="name-container">
+                <h1 class="title-name">I'm <span class="title-accent">Isaac Machado</span></h1>
+            </div>
+            <p class="title-description">DevOps Engineer | Infrastructure Specialist | Automation Enthusiast</p>
+            <a href="#contact" class="header-cta">Get in Touch</a>
+            <a href="#about" class="header-cta secondary">Discover More</a>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </header>
     
-
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Isaac Machado. All rights reserved.</p>
-  </footer>
-  
-</body>
-</html>
+    <main class="main-container">
+        <section id="about">
+            <div class="section-heading">
+                <h2 class="section-title">About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="about-grid">
+                <div class="profile-wrapper">
+                    <img src="/api/placeholder/400/500" alt="Isaac Machado" class="profile-img">
+                    <div class="profile-bg"></div>
+                </div>
+                
+                <div class="about-content">
+                    <p>I'm Isaac Machado, a DevOps Engineer with a passion for building resilient, scalable infrastructure and streamlining development workflows. My expertise lies at the intersection of development and operations, where I craft solutions that enable teams to deliver software efficiently and reliably.</p>
+                    
+                    <p>With a foundation in cloud technologies and automation, I specialize in designing infrastructure as code, implementing robust CI/CD pipelines, and orchestrating containerized environments. I believe in creating systems that not only meet today's requirements but can adapt to tomorrow's challenges.</p>
+                    
+                    <p>Throughout my career, I've helped organizations transform their development processes, reduce operational overhead, and improve their security posture through DevOps best practices. I'm constantly exploring new technologies and methodologies to stay at the forefront of infrastructure innovation.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-value">7+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">50+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">15+</div>
+                            <div class="stat-label">Technologies Mastered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="expertise">
+            <div class="section-heading">
+                <h2 class="section-title">Technical Expertise</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="skill-title">Cloud Infrastructure</h3>
+                    <p class="skill-description">Designing and implementing scalable, secure, and efficient cloud architectures across multiple providers, with a focus on optimization and cost management.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">GCP</span>
+                        <span class="skill-tag">Multi-cloud</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="skill-title">CI/CD Pipelines</h3>
+                    <p class="skill-description">Building automated workflows for continuous integration and delivery, enabling rapid, consistent, and reliable software deployments.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jenkins</span>
+                        <span class="skill-tag">GitLab CI</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">ArgoCD</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3 class="skill-title">Containerization</h3>
+                    <p class="skill-description">Orchestrating containerized applications at scale, with expertise in Docker, Kubernetes, and related ecosystem tools.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">Helm</span>
+                        <span class="skill-tag">Microservices</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="skill-title">Infrastructure as Code</h3>
+                    <p class="skill-description">Creating reproducible and version-controlled infrastructure through code, ensuring consistency across environments and reducing manual configuration.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">CloudFormation</span>
+                        <span class="skill-tag">Ansible</span>
+                        <span class="skill-tag">Pulumi</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="skill-title">Monitoring & Observability</h3>
+                    <p class="skill-description">Implementing comprehensive monitoring solutions for infrastructure and applications, with a focus on real-time insights and proactive alerting.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Prometheus</span>
+                        <span class="skill-tag">Grafana</span>
+                        <span class="skill-tag">ELK Stack</span>
+                        <span class="skill-tag">Datadog</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="skill-title">Security & Compliance</h3>
+                    <p class="skill-description">Integrating security throughout the development lifecycle, with expertise in automated security scanning, compliance as code, and threat modeling.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">DevSecOps</span>
+                        <span class="skill-tag">SAST/DAST</span>
+                        <span class="skill-tag">IaC Security</span>
+                        <span class="skill-tag">Compliance</span>
+                    </div>
+                </div>
